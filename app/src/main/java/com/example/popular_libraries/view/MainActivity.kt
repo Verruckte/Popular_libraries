@@ -5,33 +5,44 @@ import android.os.Bundle
 import android.view.View
 import com.example.popular_libraries.databinding.ActivityMainBinding
 import com.example.popular_libraries.presenter.MainPresenter
+import com.example.popular_libraries.utils.Numbers
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    private var vb: ActivityMainBinding? = null
-    val presenter = MainPresenter(this)
+    private lateinit var binding: ActivityMainBinding
+
+    private val presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val listener = View.OnClickListener {
-            presenter.counterClick(it.id)
-        }
-
-        vb?.btnCounter1?.setOnClickListener(listener)
-        vb?.btnCounter2?.setOnClickListener(listener)
-        vb?.btnCounter3?.setOnClickListener(listener)
+        setButtonClickListener()
     }
 
-    //Подсказка к ПЗ: поделить на 3 отдельные функции и избавиться от index
-    override fun setButtonText(index: Int, text: String) {
-        when (index) {
-            0 -> vb?.btnCounter1?.text = text
-            1 -> vb?.btnCounter2?.text = text
-            2 -> vb?.btnCounter3?.text = text
-
+    private fun setButtonClickListener() {
+        binding.buttonCounter1.setOnClickListener {
+            presenter.counterClick(Numbers.ONE)
+        }
+        binding.buttonCounter2.setOnClickListener {
+            presenter.counterClick(Numbers.TWO)
+        }
+        binding.buttonCounter3.setOnClickListener {
+            presenter.counterClick(Numbers.THREE)
         }
     }
+
+    override fun setButton1Text(text: String) {
+        binding.buttonCounter1.text = text
+    }
+
+    override fun setButton2Text(text: String) {
+        binding.buttonCounter2.text = text
+    }
+
+    override fun setButton3Text(text: String) {
+        binding.buttonCounter3.text = text
+    }
+
 }
