@@ -1,20 +1,18 @@
 package com.example.popular_libraries.presenter
 
-import com.example.popular_libraries.R
-import com.example.popular_libraries.model.CountersModel
-import com.example.popular_libraries.utils.Numbers
 import com.example.popular_libraries.view.MainView
+import com.github.terrakok.cicerone.Router
+import moxy.MvpPresenter
 
 
-class MainPresenter(val view: MainView) {
-    private val model = CountersModel()
+class MainPresenter(private val router: Router, private val screens: IScreens) : MvpPresenter<MainView>() {
 
-    fun counterClick(buttonCounterNumber: Numbers) {
-        when (buttonCounterNumber) {
-            Numbers.ONE -> view.setButton1Text(model.next(0).toString())
-            Numbers.TWO -> view.setButton2Text(model.next(1).toString())
-            Numbers.THREE -> view.setButton3Text(model.next(2).toString())
-        }
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        router.replaceScreen(screens.users())
     }
 
+    fun backClicked() {
+        router.exit()
+    }
 }
