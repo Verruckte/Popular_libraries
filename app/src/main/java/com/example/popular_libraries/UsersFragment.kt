@@ -14,16 +14,23 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
+
     companion object {
         fun newInstance() = UsersFragment()
     }
 
-    private val presenter: UsersPresenter by moxyPresenter { UsersPresenter(GithubUsersRepo(), App.instance.router) }
-    var adapter: UsersRVAdapter? = null
+    private val presenter: UsersPresenter by moxyPresenter {
+        UsersPresenter(GithubUsersRepo(), App.instance.router, AndroidScreens())
+    }
+    private var adapter: UsersRVAdapter? = null
 
     private var vb: FragmentUsersBinding? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) =
         FragmentUsersBinding.inflate(inflater, container, false).also {
             vb = it
         }.root
