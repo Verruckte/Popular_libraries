@@ -5,6 +5,7 @@ import com.example.popular_libraries.model.GithubUsersRepo
 import com.example.popular_libraries.view.UserItemView
 import com.example.popular_libraries.view.UsersView
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
 class UsersPresenter(
@@ -24,6 +25,8 @@ class UsersPresenter(
         }
     }
 
+    private val compositeDisposable = CompositeDisposable()
+
     val usersListPresenter = UsersListPresenter()
 
     override fun onFirstViewAttach() {
@@ -38,7 +41,12 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        usersRepo.getUsers().subscribe { users -> usersListPresenter.users.addAll(users) }
+        compositeDisposable.add(
+            usersRepo.getUsers()
+                .subscribe { users ->
+                    usersListPresenter.users.addAll(users)
+                }
+        )
         viewState.updateList()
     }
 
@@ -46,5 +54,11 @@ class UsersPresenter(
         router.exit()
         return true
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
+    }
+
 
 }
