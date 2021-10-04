@@ -1,28 +1,19 @@
 package com.example.popular_libraries.presenter
 
-import com.example.popular_libraries.R
-import com.example.popular_libraries.model.CountersModel
 import com.example.popular_libraries.view.MainView
+import com.example.popular_libraries.view.UsersScreen
+import com.github.terrakok.cicerone.Router
+import moxy.MvpPresenter
 
 
-class MainPresenter(val view: MainView) {
-    val model = CountersModel()
+class MainPresenter(
+        private val router: Router,
+) : MvpPresenter<MainView>() {
 
-    //Архитектурная ошибка. В качестве практического задания -- исправить
-    fun counterClick(id: Int){
-        when(id){
-            R.id.btn_counter1 -> {
-                val nextValue = model.next(0)
-                view.setButtonText(0, nextValue.toString())
-            }
-            R.id.btn_counter2 -> {
-                val nextValue = model.next(1)
-                view.setButtonText(1, nextValue.toString())
-            }
-            R.id.btn_counter3 -> {
-                val nextValue = model.next(2)
-                view.setButtonText(2, nextValue.toString())
-            }
-        }
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        router.newRootScreen(UsersScreen.create())
     }
+
+    fun back() = router.exit()
 }

@@ -1,37 +1,35 @@
 package com.example.popular_libraries.view
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.View
-import com.example.popular_libraries.databinding.ActivityMainBinding
+import com.example.popular_libraries.App.Navigation.navigatorHolder
+import com.example.popular_libraries.App.Navigation.router
+import com.example.popular_libraries.R
+import com.example.popular_libraries.presenter.BackButtonListener
 import com.example.popular_libraries.presenter.MainPresenter
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(R.layout.activity_main), MainView {
 
-    private var vb: ActivityMainBinding? = null
-    val presenter = MainPresenter(this)
+    private val presenter by moxyPresenter { MainPresenter(router) }
+    private val navigator = AppNavigator(this, R.id.container)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
-
-        val listener = View.OnClickListener {
-            presenter.counterClick(it.id)
-        }
-
-        vb?.btnCounter1?.setOnClickListener(listener)
-        vb?.btnCounter2?.setOnClickListener(listener)
-        vb?.btnCounter3?.setOnClickListener(listener)
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
     }
 
-    //Подсказка к ПЗ: поделить на 3 отдельные функции и избавиться от index
-    override fun setButtonText(index: Int, text: String) {
-        when (index) {
-            0 -> vb?.btnCounter1?.text = text
-            1 -> vb?.btnCounter2?.text = text
-            2 -> vb?.btnCounter3?.text = text
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
+    }
 
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            if (it is BackButtonListener && it.backPressed()) {
+                return
+            }
         }
+        presenter.back()
     }
 }
