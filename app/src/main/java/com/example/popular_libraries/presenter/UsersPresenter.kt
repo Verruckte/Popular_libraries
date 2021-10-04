@@ -1,31 +1,33 @@
 package com.example.popular_libraries.presenter
 
-import com.example.popular_libraries.model.GithubUser
-import com.example.popular_libraries.model.GithubUsersRepo
+import com.example.popular_libraries.model.repo.IGithubUsersRepo
+import com.example.popular_libraries.view.GithubUserViewModel
 import com.example.popular_libraries.view.UserItemView
+import com.example.popular_libraries.view.UserScreen
 import com.example.popular_libraries.view.UsersView
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 class UsersPresenter(
-    private val usersRepo: GithubUsersRepo,
+    private val usersRepo: IGithubUsersRepo,
     private val router: Router,
-    private val screens: IScreens
 ) : MvpPresenter<UsersView>() {
+
+    private val disposables: CompositeDisposable = CompositeDisposable()
+
     class UsersListPresenter : IUserListPresenter {
-        val users = mutableListOf<GithubUser>()
+        val users = mutableListOf<GithubUserViewModel>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
-
         override fun getCount() = users.size
-
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
-            view.setLogin(user.login)
+            view.setUser(user.login, user.avatar_url)
         }
     }
-
-    private val compositeDisposable = CompositeDisposable()
 
     val usersListPresenter = UsersListPresenter()
 
@@ -35,19 +37,33 @@ class UsersPresenter(
         loadData()
 
         usersListPresenter.itemClickListener = { itemView ->
-            val user = usersListPresenter.users[itemView.pos]
-            router.navigateTo(screens.user(user))
+            val login = usersListPresenter.users[itemView.pos].login
+            router.navigateTo(UserScreen(login).create())
         }
     }
 
     private fun loadData() {
-        compositeDisposable.add(
-            usersRepo.getUsers()
-                .subscribe { users ->
-                    usersListPresenter.users.addAll(users)
-                }
-        )
-        viewState.updateList()
+        disposables +=
+                usersRepo.getUsers()
+                        .observeOn(Schedulers.computation())
+                        .map { users ->
+                            val list = mutableListOf<GithubUserViewModel>()
+                            for (i in users.indices) {
+                                list.add(GithubUserViewModel.Mapper.map(users[i]))
+                            }
+                            list
+                        }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                { users ->
+                                    usersListPresenter.users.addAll(users)
+                                    viewState.updateList()
+                                },
+                                { error ->
+                                    viewState.showToast(error.message ?: "Load users error")
+                                }
+                        )
+
     }
 
     fun backPressed(): Boolean {
@@ -57,8 +73,6 @@ class UsersPresenter(
 
     override fun onDestroy() {
         super.onDestroy()
-        compositeDisposable.dispose()
+        disposables.dispose()
     }
-
-
 }

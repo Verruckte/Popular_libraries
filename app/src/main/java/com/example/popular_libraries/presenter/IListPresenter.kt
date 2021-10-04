@@ -8,5 +8,3 @@ interface IListPresenter<V : IItemView> {
     fun bindView(view: V)
     fun getCount(): Int
 }
-
-interface IUserListPresenter : IListPresenter<UserItemView>
