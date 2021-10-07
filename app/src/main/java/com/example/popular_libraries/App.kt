@@ -1,14 +1,18 @@
 package com.example.popular_libraries
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
+import io.reactivex.plugins.RxJavaPlugins
+
 
 class App : Application() {
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
+    @SuppressLint("StaticFieldLeak")
+    object ContextHolder {
+        lateinit var context: Context
     }
 
     companion object Navigation {
@@ -18,4 +22,11 @@ class App : Application() {
         val navigatorHolder get() = cicerone.getNavigatorHolder()
         val router get() = cicerone.router
     }
+
+    override fun onCreate() {
+        super.onCreate()
+        ContextHolder.context = applicationContext
+        RxJavaPlugins.setErrorHandler { }
+    }
+
 }
