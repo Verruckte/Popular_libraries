@@ -6,4 +6,6 @@ import moxy.viewstate.strategy.StateStrategyType
 import moxy.viewstate.strategy.alias.SingleState
 
 @SingleState()
-interface MainView : MvpView
+interface UserView : MvpView {
+    fun setLogin(text: String)
+}
