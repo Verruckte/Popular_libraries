@@ -1,12 +1,10 @@
 package com.example.popular_libraries
 
-
-import com.example.popular_libraries.helpers.di.DaggerAppComponent
+import com.example.popular_libraries.di.DaggerAppComponent
 import com.example.popular_libraries.helpers.shedules.AppSchedulersImpl
 import com.github.terrakok.cicerone.Cicerone
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-
 
 class App : DaggerApplication() {
 

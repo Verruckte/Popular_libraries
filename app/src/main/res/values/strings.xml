@@ -1,12 +1,5 @@
 <resources>
     <string name="app_name">Popular Libraries</string>
-    <string name="button_select_image">Выбрать картинку</string>
-    <string name="button_save_image">Сохранить картинку</string>
-    <string name="button_cancel_image">Отмена</string>
-    <string name="image_compressor_title">Качество изображения: %1$d%% от исходного</string>
-    <string name="image_size_title">Размеры сторон: %1$d%% от исходного</string>
-    <string name="permission">Разрешить</string>
-    <string name="no_permission">Нет прав на запись</string>
-    <string name="no_permission_ok">Выберите изображение</string>
-    <string name="message_from_permission">Необходимы права на запись!</string>
+    <string name="period_update_text">Автообновление цитат: %1$d сек</string>
+    <string name="reverse_timer_text">до обновления: %1$d сек</string>
 </resources>

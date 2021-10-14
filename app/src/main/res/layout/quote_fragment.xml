@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:indeterminateOnly="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reverse_timer_text"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:textSize="@dimen/mini_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/quote_text"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/quote_text_margin"
+        android:layout_marginTop="@dimen/quote_text_margin"
+        android:layout_marginEnd="@dimen/quote_text_margin"
+        android:textSize="@dimen/quote_text_main_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar" />
+
+    <TextView
+        android:id="@+id/quote_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/quote_author_margin"
+        android:textSize="@dimen/quote_author_size"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@id/quote_text"
+        app:layout_constraintTop_toBottomOf="@id/quote_text" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_update_quote"
+        style="@style/fabSubmenuStyle"
+        android:src="@drawable/icon_update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintCircle="@+id/fab_menu"
+        app:layout_constraintCircleAngle="360"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_history_quote"
+        style="@style/fabSubmenuStyle"
+        android:src="@drawable/icon_history"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintCircle="@+id/fab_menu"
+        app:layout_constraintCircleAngle="315"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_setting"
+        style="@style/fabSubmenuStyle"
+        android:src="@drawable/icon_setting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintCircle="@+id/fab_menu"
+        app:layout_constraintCircleAngle="270"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:src="@drawable/icon_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/purple_700" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

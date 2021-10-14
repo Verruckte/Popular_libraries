@@ -3,11 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/drawable/icon_history.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/drawable/icon_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/drawable/icon_setting.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/drawable/icon_update.xml" value="0.1" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/image_compressor_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/main_activity.xml" value="0.1" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/main_item_view.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/quote_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/quote_history_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/quote_history_item.xml" value="0.1" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/repository_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/repository_item_view.xml" value="0.1" />
+        <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/setting_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/user_fragment.xml" value="0.1" />
         <entry key="..\:/Users/Verruckte/AndroidStudioProjects/Popular_libraries/app/src/main/res/layout/users_fragment.xml" value="0.1" />
       </map>
